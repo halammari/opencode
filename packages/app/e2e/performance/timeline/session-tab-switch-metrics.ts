@@ -53,13 +53,11 @@ export function isCorrectDestination(sample: SessionSwitchSample) {
   const requiredPartIsVisible = sample.requiredPartVisible !== false
   const bottomAnchorIsValid = hasValidBottomAnchor(sample)
 
-  return (
-    hasDestination &&
-    hasNoSource &&
-    isLastSample &&
-    requiredPartIsVisible &&
-    bottomAnchorIsValid
-  )
+  if (!hasDestination || !hasNoSource || !isLastSample || !requiredPartIsVisible) {
+    return false
+  }
+
+  return bottomAnchorIsValid
 }
 
 export function isStableSessionSwitch(samples: SessionSwitchSample[]) {
